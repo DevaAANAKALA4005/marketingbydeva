@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Marketing Starter Guide — marketingbydeva</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --accent: #ff6b2b;
+    --accent2: #ffb347;
+    --text: #f0ede8;
+    --muted: #888;
+    --border: rgba(255,255,255,0.08);
+    --card: #141414;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,107,43,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,179,71,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,107,43,0.12);
+    border: 1px solid rgba(255,107,43,0.3);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+  .badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: #aaa;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .hero-meta .by {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 13px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .by-text { font-size: 13px; color: var(--muted); }
+  .by-text strong { display: block; color: var(--text); font-size: 14px; font-weight: 500; }
+  .hero-stats {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .hstat { text-align: center; }
+  .hstat b { display: block; font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .hstat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .scroll-hint {
+    margin-top: 4rem;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--muted);
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+  .section-intro {
+    color: #999;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* TOOL CARDS */
+  .tools-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card:hover { border-color: rgba(255,107,43,0.3); }
+  .tool-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: rgba(255,107,43,0.15);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .tool-info { flex: 1; }
+  .tool-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 3px;
+    color: var(--text);
+  }
+  .tool-use {
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .tool-desc {
+    font-size: 0.9rem;
+    color: #aaa;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .tool-tag {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(255,107,43,0.1);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,107,43,0.2);
+  }
+
+  /* PROMPTS */
+  .prompts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .prompt-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .prompt-header {
+    padding: 0.75rem 1.2rem;
+    background: rgba(255,107,43,0.06);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .prompt-header span {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: 0.6; }
+  .prompt-text {
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', monospace;
+    font-size: 0.88rem;
+    color: #d0cdc8;
+    line-height: 1.7;
+    font-weight: 300;
+    font-style: italic;
+  }
+  .prompt-text strong { color: var(--accent2); font-style: normal; font-weight: 500; }
+
+  /* FUNNEL */
+  .funnel-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .funnel-step {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .funnel-step:last-child { border-bottom: none; }
+  .step-num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,107,43,0.12);
+    border: 1px solid rgba(255,107,43,0.3);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 6px;
+  }
+  .step-content { flex: 1; padding-top: 4px; }
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .step-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tag-top { background: rgba(52,199,89,0.1); color: #34c759; border: 1px solid rgba(52,199,89,0.2); }
+  .tag-mid { background: rgba(255,179,71,0.1); color: var(--accent2); border: 1px solid rgba(255,179,71,0.2); }
+  .tag-bot { background: rgba(255,107,43,0.1); color: var(--accent); border: 1px solid rgba(255,107,43,0.2); }
+  .step-desc { font-size: 0.9rem; color: #999; font-weight: 300; line-height: 1.6; }
+  .step-example {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: #777;
+    border-left: 2px solid rgba(255,107,43,0.3);
+    padding-left: 10px;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.8rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .check-box {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(255,107,43,0.4);
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative;
+  }
+  .check-item-text { font-size: 0.9rem; color: #ccc; font-weight: 300; }
+  .check-item-text strong { color: var(--text); font-weight: 500; }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 1.5rem;
+    background: rgba(255,107,43,0.04);
+    border-radius: 0 12px 12px 0;
+    margin: 2rem 0;
+  }
+  .quote-block p {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .quote-block cite {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: normal;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 1rem;
+  }
+  .footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .footer-brand em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .footer-note { font-size: 0.8rem; color: var(--muted); }
+
+  /* DIVIDER */
+  .divider {
+    max-width: 700px; margin: 0 auto;
+    height: 1px; background: var(--border);
+  }
+
+  @media(max-width: 500px) {
+    .hero h1 { font-size: 2.4rem; }
+    .hero-stats { gap: 1rem; }
+    .tool-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge"><span></span> Free Starter Guide</div>
+  <h1>AI Marketing<br>for <em>Beginners</em><br>— Made Simple.</h1>
+  <p>Everything you need to start using AI in your marketing today. No experience needed. Just open, read, and take action.</p>
+  <div class="hero-meta">
+    <div class="by">
+      <div class="avatar">D</div>
+      <div class="by-text">
+        <strong>Deva</strong>
+        @marketingbydeva
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><b>5</b><span>AI Tools</span></div>
+      <div class="hstat"><b>10</b><span>Prompts</span></div>
+      <div class="hstat"><b>1</b><span>Full Strategy</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to begin</div>
+</div>
+
+<!-- SECTION 1: WHY AI -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>Why AI + Marketing?</h2>
+  <p class="section-intro">AI doesn't replace marketers. It makes good marketers 10x faster. Here's what you need to understand first.</p>
+
+  <div class="quote-block">
+    <p>"The marketer who uses AI will replace the marketer who doesn't."</p>
+    <cite>— The reality of 2025</cite>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>AI saves you hours.</strong> Tasks that took 3 hours now take 15 minutes — writing captions, research, strategy, emails.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>AI makes you consistent.</strong> One of the hardest things in marketing is showing up daily. AI makes content creation so easy, you have no excuse.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>AI levels the playing field.</strong> Small businesses and solo creators can now compete with big brands. You just need the right tools.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>AI needs YOU to lead it.</strong> AI is a tool, not a replacement. Your strategy, creativity, and voice — that's what makes the output great.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: TOOLS -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>5 AI Tools Every Marketer Must Know</h2>
+  <p class="section-intro">These are free or freemium tools. Start with one, master it, then move to the next.</p>
+
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-num">01</div>
+      <div class="tool-info">
+        <div class="tool-use">Content Writing</div>
+        <div class="tool-name">ChatGPT</div>
+        <div class="tool-desc">Write captions, emails, ad copy, blog posts, video scripts and full marketing strategies in seconds. The most powerful tool to start with.</div>
+      </div>
+      <div class="tool-tag">Free</div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-num">02</div>
+      <div class="tool-info">
+        <div class="tool-use">Visual Design</div>
+        <div class="tool-name">Canva AI</div>
+        <div class="tool-desc">Design professional carousels, posters, reels covers, and brand kits in minutes — even if you have zero design experience. Magic Write is built in.</div>
+      </div>
+      <div class="tool-tag">Free</div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-num">03</div>
+      <div class="tool-info">
+        <div class="tool-use">Video Editing</div>
+        <div class="tool-name">CapCut AI</div>
+        <div class="tool-desc">Auto-captions, background remover, script-to-video, and AI voice. The go-to tool for creating Reels fast without any editing skills.</div>
+      </div>
+      <div class="tool-tag">Free</div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-num">04</div>
+      <div class="tool-info">
+        <div class="tool-use">Content Repurposing</div>
+        <div class="tool-name">OpusClip</div>
+        <div class="tool-desc">Paste a long YouTube video or recording — OpusClip cuts it into 10+ short viral Reels automatically. One video becomes a month of content.</div>
+      </div>
+      <div class="tool-tag">Freemium</div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-num">05</div>
+      <div class="tool-info">
+        <div class="tool-use">Research & Strategy</div>
+        <div class="tool-name">Perplexity AI</div>
+        <div class="tool-desc">Like Google but smarter. Ask it to research your competitors, find trending topics, understand your audience, or summarise any article instantly.</div>
+      </div>
+      <div class="tool-tag">Free</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 3: PROMPTS -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>10 ChatGPT Prompts to Save Right Now</h2>
+  <p class="section-intro">Copy these, fill in your details, and watch AI do the heavy lifting. Replace the bold parts with your own info.</p>
+
+  <div class="prompts-list">
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Caption Writing</span></div>
+      <div class="prompt-text">Write 5 engaging Instagram captions for a post about <strong>[your topic]</strong>. Target audience is <strong>[beginners / students / entrepreneurs]</strong>. Keep each under 150 words. End with a question to boost comments.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Content Ideas</span></div>
+      <div class="prompt-text">Give me 30 Instagram content ideas for a page about <strong>[AI + marketing]</strong>. Mix Reels, carousels, and static posts. Focus on topics that beginners find confusing or exciting.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Reel Script</span></div>
+      <div class="prompt-text">Write a 45-second Reel script about <strong>[topic]</strong>. Start with a strong hook in the first 3 seconds. Use simple language. End with a clear call to action to follow the page.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Email Writing</span></div>
+      <div class="prompt-text">Write a cold email to <strong>[type of business]</strong> offering <strong>[your service]</strong>. Keep it under 100 words. Focus on the problem they have, not the features of my service. Make the CTA a simple reply.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Competitor Research</span></div>
+      <div class="prompt-text">Analyse the marketing strategy of <strong>[competitor or brand name]</strong>. What content do they post? Who is their target audience? What is their hook? What can I do differently?</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Carousel Slides</span></div>
+      <div class="prompt-text">Create a 7-slide Instagram carousel about <strong>[topic]</strong>. Slide 1 = hook. Slides 2–6 = one tip per slide, max 2 lines each. Slide 7 = CTA to follow. Keep language simple and punchy.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Hashtag Strategy</span></div>
+      <div class="prompt-text">Give me 20 Instagram hashtags for a post about <strong>[your topic]</strong>. Mix 5 big hashtags (1M+), 10 medium (100K–1M), and 5 niche (under 100K). Explain why each group matters.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Ad Copy</span></div>
+      <div class="prompt-text">Write 3 versions of a Facebook/Instagram ad for <strong>[product or service]</strong>. Version 1: Problem-focused. Version 2: Benefit-focused. Version 3: Social proof. Keep each under 80 words.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Bio Writing</span></div>
+      <div class="prompt-text">Write 3 Instagram bio options for a creator who posts about <strong>[niche]</strong> targeting <strong>[audience]</strong>. Each bio should be under 150 characters, include an emoji, and end with a CTA.</div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header"><div class="dot"></div><span>Weekly Planner</span></div>
+      <div class="prompt-text">Create a 4-week Instagram content plan for a page about <strong>[AI + marketing]</strong>. Post 4 times a week: Monday, Wednesday, Saturday, Sunday. Include format (Reel/Carousel/Static) and topic for each day.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 4: STRATEGY -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>Your First Marketing Strategy in 5 Steps</h2>
+  <p class="section-intro">This is the exact framework to build your marketing foundation — whether for your own brand or a client.</p>
+
+  <div class="funnel-steps">
+
+    <div class="funnel-step">
+      <div class="step-num-wrap">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag tag-top">Foundation</div>
+        <div class="step-title">Define Your Audience</div>
+        <div class="step-desc">Before any content, know exactly who you're talking to. Age, goals, fears, what they scroll at night. The more specific, the better.</div>
+        <div class="step-example">Prompt: "Describe the ideal customer for a [business type] in detail. Include age, job, problems, and what content they enjoy."</div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num-wrap">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag tag-top">Awareness</div>
+        <div class="step-title">Create Content That Attracts (TOFU)</div>
+        <div class="step-desc">Top of funnel content — broad, educational, shareable. Reels and carousels. Goal: get strangers to discover you. No selling here.</div>
+        <div class="step-example">Example: "5 things nobody tells you about content marketing" — reaches people who don't know you yet.</div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num-wrap">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag tag-mid">Consideration</div>
+        <div class="step-title">Build Trust (MOFU)</div>
+        <div class="step-desc">Middle of funnel — deeper value, your story, your results. Followers become fans here. Show your process, behind-the-scenes, lessons learned.</div>
+        <div class="step-example">Example: "How I wrote a full marketing strategy using only AI tools" — positions you as someone worth following closely.</div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num-wrap">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag tag-bot">Conversion</div>
+        <div class="step-title">Make an Offer (BOFU)</div>
+        <div class="step-desc">Bottom of funnel — now you can pitch. A product, service, waitlist, or free resource. Your audience trusts you by now — this is where they act.</div>
+        <div class="step-example">Example: "I built a marketplace for [X] — here's the link to join the waitlist" — converts warm followers into real users.</div>
+      </div>
+    </div>
+
+    <div class="funnel-step">
+      <div class="step-num-wrap">
+        <div class="step-num">5</div>
+      </div>
+      <div class="step-content">
+        <div class="step-tag tag-mid">Retention</div>
+        <div class="step-title">Keep Them Coming Back</div>
+        <div class="step-desc">Consistency wins long-term. Reply to comments, post on your schedule, share updates. People stay where they feel seen and valued.</div>
+        <div class="step-example">Use AI to batch-create 1 month of content in one sitting — so you never go quiet.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 5: ACTION PLAN -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>Your 7-Day Action Plan</h2>
+  <p class="section-intro">Don't just read — do. Here's your exact plan for the next 7 days to go from zero to posting.</p>
+
+  <div class="checklist">
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 1 —</strong> Sign up for ChatGPT and Canva. Spend 30 mins exploring both.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 2 —</strong> Use the "30 content ideas" prompt. Save your top 12 ideas in a notes app.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 3 —</strong> Design your first carousel on Canva using ChatGPT-written slide copy.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 4 —</strong> Film your first Reel using the script prompt. Use CapCut to add captions.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 5 —</strong> Write your Instagram bio using the bio prompt. Set up your page.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 6 —</strong> Plan your first 4 weeks using the weekly planner prompt.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-item-text"><strong>Day 7 —</strong> Post your first Reel. Engage with 5 accounts in your niche. You're live. 🚀</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>
+    <div class="footer-brand">marketing<em>bydeva</em></div>
+    <div class="footer-note">Follow on Instagram for weekly tips & tools</div>
+  </div>
+  <div class="footer-note" style="text-align:right;">
+    Free to share.<br>
+    Don't sell this guide.
+  </div>
+</div>
+
+</body>
+</html>
